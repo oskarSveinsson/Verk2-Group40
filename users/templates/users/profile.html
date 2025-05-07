@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-md rounded-xl">
+    <h2 class="text-2xl font-bold mb-6">Your Profile</h2>
+
+    <div class="flex items-center gap-6 mb-6">
+        {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" alt="Profile picture" class="w-24 h-24 rounded-full object-cover">
+        {% else %}
+            <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                <span class="text-sm">No Image</span>
+            </div>
+        {% endif %}
+
+        <div>
+            <p class="text-lg font-semibold">{{ user.username }}</p>
+            <p class="text-gray-600">{{ user.email }}</p>
+        </div>
+    </div>
+
+    <div class="flex gap-4">
+        <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-md">
+            Log Out
+        </a>
+        <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md">
+            Edit Profile
+        </a>
+    </div>
+</div>
+{% endblock %}
