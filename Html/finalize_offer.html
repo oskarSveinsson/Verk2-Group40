@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finalize Offer - Castle Apartments</title>
+  <link rel="stylesheet" href="styles/styles6.css" />
+</head>
+<body>
+  <header class="navbar">
+    <img src="images/icon.png" alt="Home icon" class="icon">
+    <h1 class="logo">Castle Apartments</h1>
+    <img src="images/person.png" alt="User icon" class="icon">
+  </header>
+
+  <main class="form-container">
+    <h2>Finalize Your Offer</h2>
+    <form action="confirmation.html" method="post">
+      <h3>Contact Information</h3>
+
+      <label for="street">Street Name:</label>
+      <input type="text" id="street" name="street" placeholder="E.g. Laugavegur 10" required minlength="2" />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" placeholder="E.g. Reykjavík" required />
+
+      <label for="postal">Postal Code:</label>
+      <input type="text" id="postal" name="postal" placeholder="E.g. 101" pattern="\d{3}" required />
+
+      <label for="country">Country:</label>
+      <select id="country" name="country" required>
+        <option value="">-- Select Country --</option>
+        <option value="IS">Iceland</option>
+        <option value="NO">Norway</option>
+        <option value="SE">Sweden</option>
+        <option value="DK">Denmark</option>
+        <option value="FI">Finland</option>
+      </select>
+
+      <label for="nationalId">National ID:</label>
+      <input type="text" id="nationalId" name="nationalId" placeholder="123456-7890" pattern="\d{6}-\d{4}" required />
+
+      <h3>Payment Method</h3>
+      <select id="paymentMethod" name="paymentMethod" required>
+        <option value="">Select payment method</option>
+        <option value="credit">Credit Card</option>
+        <option value="bank">Bank Transfer</option>
+        <option value="mortgage">Mortgage</option>
+      </select>
+
+      <div id="creditCardFields" style="display: none;">
+        <h4>Credit Card Information</h4>
+
+        <label for="cardName">Cardholder Name:</label>
+        <input type="text" id="cardName" name="cardName" placeholder="Full name on card" minlength="2" required>
+
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234567812345678" pattern="\d{16}" maxlength="16" required>
+
+        <label for="expiry">Expiry Date:</label>
+        <input type="month" id="expiry" name="expiry" min="2025-05" required>
+
+        <label for="cvc">CVC:</label>
+        <input type="text" id="cvc" name="cvc" placeholder="123" pattern="\d{3}" maxlength="3" required>
+      </div>
+
+      <button type="submit">Review and Confirm</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>About</p>
+    <p>Social media</p>
+  </footer>
+
+  <script>
+    const paymentSelect = document.getElementById("paymentMethod");
+    const creditFields = document.getElementById("creditCardFields");
+
+    paymentSelect.addEventListener("change", () => {
+      if (paymentSelect.value === "credit") {
+        creditFields.style.display = "block";
+      } else {
+        creditFields.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
