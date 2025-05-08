@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-10 px-4">
+  <h2 class="text-2xl font-semibold mb-6">Listed Properties</h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    {% for prop in properties %}
+      <a href="{% url 'property-detail' prop.id %}" class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition">
+        {% with prop.images.all.0 as first_image %}
+          {% if first_image %}
+            <img src="{{ first_image.url }}" alt="Property Image" class="w-full h-48 object-cover" />
+          {% else %}
+            <img src="{% static 'images/default.png' %}" alt="No Image" class="w-full h-48 object-cover" />
+          {% endif %}
+        {% endwith %}
+        <div class="p-4">
+          <h3 class="text-lg font-semibold">{{ prop.street }} {{ prop.house_number }}</h3>
+          <p class="text-sm text-gray-600">{{ prop.city }} {{ prop.postal_code }}</p>
+          <p class="text-blue-600 font-bold">{{ prop.listing_price|floatformat:0 }} ISK</p>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
