@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-lg shadow space-y-6">
 
     <div class="text-center">
         <h1 class="text-2xl font-bold">Hello, {{ user.username }}</h1>
+
         {% if profile.profile_image %}
             <img src="{{ profile.profile_image.url }}" alt="Profile image"
                  class="w-24 h-24 rounded-full mx-auto mt-4 object-cover">
@@ -15,23 +17,43 @@
         {% endif %}
     </div>
 
-    <form method="POST" enctype="multipart/form-data" class="space-y-4" id="profile-form">
+    <div class="text-center">
+        <button id="edit-btn" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-2">
+            Edit Profile
+        </button>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-4 mt-6 {% if not user_form.errors and not image_form.errors and not request.POST %}hidden{% endif %}" id="profile-form">
         {% csrf_token %}
-        {{ user_form.non_field_errors }}
-        {{ image_form.non_field_errors }}
+
+        {% if user_form.non_field_errors %}
+            <div class="text-red-500 text-sm">
+                {{ user_form.non_field_errors }}
+            </div>
+        {% endif %}
+        {% if image_form.non_field_errors %}
+            <div class="text-red-500 text-sm">
+                {{ image_form.non_field_errors }}
+            </div>
+        {% endif %}
 
         <div>
-            <label for="id_username" class="block text-sm font-medium text-gray-700">Update Username</label>
+            <label for="{{ user_form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">Update Username</label>
             {{ user_form.username }}
+            {% if user_form.username.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ user_form.username.errors.0 }}</p>
+            {% endif %}
         </div>
 
         <div>
-            <label for="id_profile_image" class="block text-sm font-medium text-gray-700">Upload Profile Image</label>
+            <label for="{{ image_form.profile_image.id_for_label }}" class="block text-sm font-medium text-gray-700">Upload Profile Image</label>
             {{ image_form.profile_image }}
+            {% if image_form.profile_image.errors %}
+                <p class="text-red-500 text-sm mt-1">{{ image_form.profile_image.errors.0 }}</p>
+            {% endif %}
         </div>
 
-        <button type="submit"
-                class="bg-blue-500 text-white px-4 py-2 rounded-md mt-2">
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md mt-2">
             Save Changes
         </button>
     </form>
