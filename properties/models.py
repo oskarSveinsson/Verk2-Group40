@@ -15,6 +15,7 @@ class Property(models.Model):
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
     total_area = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
 
     def __str__(self):
         return self.street
