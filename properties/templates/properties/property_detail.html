@@ -70,6 +70,35 @@
         </div>
     </div>
     {% endif %}
+    <!-- Seller Profile Display -->
+{% with s=property.seller %}
+<div class="mt-10 p-6 bg-white rounded-lg shadow border border-gray-200">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Seller Profile</h2>
+    <div class="flex items-start space-x-4">
+
+        {% if s.logo_url %}
+            <img src="{{ s.logo_url }}" alt="Seller Logo" class="w-16 h-16 rounded-full shadow object-cover">
+        {% else %}
+            <div class="w-16 h-16 rounded-full bg-purple-700 text-white flex items-center justify-center text-xl font-semibold">
+                {{ s.first_name|slice:":1" }}{{ s.last_name|slice:":1" }}
+            </div>
+        {% endif %}
+
+        <div class="text-gray-700 space-y-1">
+            <p><strong>Name:</strong> {{ s.first_name }} {{ s.last_name }}</p>
+            {% if s.seller_type == 'agency' %}
+                <p><strong>Real Estate Agency</strong></p>
+                <p><strong>Location:</strong> {{ s.street }}, {{ s.postal_code }} {{ s.city }}, {{ s.country }}</p>
+            {% else %}
+                <p><strong>Individual Seller</strong></p>
+            {% endif %}
+            {% if s.bio %}
+                <p class="mt-2 text-sm text-gray-600 italic">{{ s.bio }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endwith %}
 
     <div class="text-center mt-8">
         <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
+{% load filters %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto py-10 px-4">
@@ -17,18 +19,18 @@
         <label for="price_min" class="block text-sm font-medium text-gray-700">Min Price</label>
         <select name="price_min" id="price_min" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
           <option value="">Any</option>
-          <option value="1000000" {% if request.GET.price_min == '1000000' %}selected{% endif %}>1,000,000 ISK</option>
-          <option value="5000000" {% if request.GET.price_min == '5000000' %}selected{% endif %}>5,000,000 ISK</option>
-          <option value="10000000" {% if request.GET.price_min == '10000000' %}selected{% endif %}>10,000,000 ISK</option>
-          <option value="20000000" {% if request.GET.price_min == '20000000' %}selected{% endif %}>20,000,000 ISK</option>
-          <option value="30000000" {% if request.GET.price_min == '30000000' %}selected{% endif %}>30,000,000 ISK</option>
-          <option value="40000000" {% if request.GET.price_min == '40000000' %}selected{% endif %}>40,000,000 ISK</option>
-          <option value="50000000" {% if request.GET.price_min == '50000000' %}selected{% endif %}>50,000,000 ISK</option>
-          <option value="60000000" {% if request.GET.price_min == '60000000' %}selected{% endif %}>60,000,000 ISK</option>
-          <option value="70000000" {% if request.GET.price_min == '70000000' %}selected{% endif %}>70,000,000 ISK</option>
-          <option value="80000000" {% if request.GET.price_min == '80000000' %}selected{% endif %}>80,000,000 ISK</option>
-          <option value="90000000" {% if request.GET.price_min == '90000000' %}selected{% endif %}>90,000,000 ISK</option>
-          <option value="100000000" {% if request.GET.price_min == '100000000' %}selected{% endif %}>100,000,000 ISK</option>
+          <option value="1000000" {% if request.GET.price_min == '1000000' %}selected{% endif %}>1.000.000 ISK</option>
+          <option value="5000000" {% if request.GET.price_min == '5000000' %}selected{% endif %}>5.000.000 ISK</option>
+          <option value="10000000" {% if request.GET.price_min == '10000000' %}selected{% endif %}>10.000.000 ISK</option>
+          <option value="20000000" {% if request.GET.price_min == '20000000' %}selected{% endif %}>20.000.000 ISK</option>
+          <option value="30000000" {% if request.GET.price_min == '30000000' %}selected{% endif %}>30.000.000 ISK</option>
+          <option value="40000000" {% if request.GET.price_min == '40000000' %}selected{% endif %}>40.000.000 ISK</option>
+          <option value="50000000" {% if request.GET.price_min == '50000000' %}selected{% endif %}>50.000.000 ISK</option>
+          <option value="60000000" {% if request.GET.price_min == '60000000' %}selected{% endif %}>60.000.000 ISK</option>
+          <option value="70000000" {% if request.GET.price_min == '70000000' %}selected{% endif %}>70.000.000 ISK</option>
+          <option value="80000000" {% if request.GET.price_min == '80000000' %}selected{% endif %}>80.000.000 ISK</option>
+          <option value="90000000" {% if request.GET.price_min == '90000000' %}selected{% endif %}>90.000.000 ISK</option>
+          <option value="100000000" {% if request.GET.price_min == '100000000' %}selected{% endif %}>100.000.000 ISK</option>
         </select>
       </div>
 
@@ -36,21 +38,21 @@
         <label for="price_max" class="block text-sm font-medium text-gray-700">Max Price</label>
         <select name="price_max" id="price_max" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
           <option value="">Any</option>
-          <option value="1000000" {% if request.GET.price_min == '1000000' %}selected{% endif %}>1,000,000 ISK</option>
-          <option value="5000000" {% if request.GET.price_min == '5000000' %}selected{% endif %}>5,000,000 ISK</option>
-          <option value="10000000" {% if request.GET.price_min == '10000000' %}selected{% endif %}>10,000,000 ISK</option>
-          <option value="20000000" {% if request.GET.price_min == '20000000' %}selected{% endif %}>20,000,000 ISK</option>
-          <option value="30000000" {% if request.GET.price_min == '30000000' %}selected{% endif %}>30,000,000 ISK</option>
-          <option value="40000000" {% if request.GET.price_min == '40000000' %}selected{% endif %}>40,000,000 ISK</option>
-          <option value="50000000" {% if request.GET.price_min == '50000000' %}selected{% endif %}>50,000,000 ISK</option>
-          <option value="60000000" {% if request.GET.price_min == '60000000' %}selected{% endif %}>60,000,000 ISK</option>
-          <option value="70000000" {% if request.GET.price_min == '70000000' %}selected{% endif %}>70,000,000 ISK</option>
-          <option value="80000000" {% if request.GET.price_min == '80000000' %}selected{% endif %}>80,000,000 ISK</option>
-          <option value="90000000" {% if request.GET.price_min == '90000000' %}selected{% endif %}>90,000,000 ISK</option>
-          <option value="100000000" {% if request.GET.price_min == '100000000' %}selected{% endif %}>100,000,000 ISK</option>
-          <option value="150000000" {% if request.GET.price_min == '150000000' %}selected{% endif %}>150,000,000 ISK</option>
-          <option value="200000000" {% if request.GET.price_min == '200000000' %}selected{% endif %}>200,000,000 ISK</option>
-          <option value="300000000" {% if request.GET.price_min == '300000000' %}selected{% endif %}>300,000,000 ISK</option>
+          <option value="1000000" {% if request.GET.price_min == '1000000' %}selected{% endif %}>1.000.000 ISK</option>
+          <option value="5000000" {% if request.GET.price_min == '5000000' %}selected{% endif %}>5.000.000 ISK</option>
+          <option value="10000000" {% if request.GET.price_min == '10000000' %}selected{% endif %}>10.000.000 ISK</option>
+          <option value="20000000" {% if request.GET.price_min == '20000000' %}selected{% endif %}>20.000.000 ISK</option>
+          <option value="30000000" {% if request.GET.price_min == '30000000' %}selected{% endif %}>30.000.000 ISK</option>
+          <option value="40000000" {% if request.GET.price_min == '40000000' %}selected{% endif %}>40.000.000 ISK</option>
+          <option value="50000000" {% if request.GET.price_min == '50000000' %}selected{% endif %}>50.000.000 ISK</option>
+          <option value="60000000" {% if request.GET.price_min == '60000000' %}selected{% endif %}>60.000.000 ISK</option>
+          <option value="70000000" {% if request.GET.price_min == '70000000' %}selected{% endif %}>70.000.000 ISK</option>
+          <option value="80000000" {% if request.GET.price_min == '80000000' %}selected{% endif %}>80.000.000 ISK</option>
+          <option value="90000000" {% if request.GET.price_min == '90000000' %}selected{% endif %}>90.000.000 ISK</option>
+          <option value="100000000" {% if request.GET.price_min == '100000000' %}selected{% endif %}>100.000.000 ISK</option>
+          <option value="150000000" {% if request.GET.price_min == '150000000' %}selected{% endif %}>150.000.000 ISK</option>
+          <option value="200000000" {% if request.GET.price_min == '200000000' %}selected{% endif %}>200.000.000 ISK</option>
+          <option value="300000000" {% if request.GET.price_min == '300000000' %}selected{% endif %}>300.000.000 ISK</option>
         </select>
       </div>
 
@@ -80,27 +82,85 @@
     </div>
 
     <div class="mt-4 text-right">
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Apply</button>
+      <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-700">Apply</button>
     </div>
   </form>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    {% for prop in properties %}
-      <a href="{% url 'property-detail' prop.id %}" class="block bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition">
-        {% with prop.images.all.0 as first_image %}
-          {% if first_image %}
-            <img src="{{ first_image.url }}" alt="Property Image" class="w-full h-48 object-cover" />
-          {% else %}
-            <img src="{% static 'images/default.png' %}" alt="No Image" class="w-full h-48 object-cover" />
-          {% endif %}
-        {% endwith %}
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">{{ prop.street }} {{ prop.house_number }}</h3>
-          <p class="text-sm text-gray-600">{{ prop.city }} {{ prop.postal_code }}</p>
-          <p class="text-blue-600 font-bold">{{ prop.listing_price|floatformat:0 }} ISK</p>
+  {% for prop in properties %}
+    <a href="{% url 'property-detail' prop.id %}" class="block bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+      <!-- Thumbnail -->
+      {% with prop.images.all.0 as first_image %}
+        {% if first_image %}
+          <img src="{{ first_image.url }}" alt="Property Image" class="w-full h-48 object-cover" />
+        {% else %}
+          <img src="{% static 'images/default.png' %}" alt="No Image" class="w-full h-48 object-cover" />
+        {% endif %}
+      {% endwith %}
+
+      <div class="p-4 space-y-2">
+        <!-- Street -->
+        <h3 class="text-lg font-semibold">{{ prop.street }} {{ prop.house_number }}</h3>
+        <!-- City -->
+        <p class="text-sm text-gray-600">{{ prop.postal_code }} {{ prop.city }}</p>
+        <!-- Seperator -->
+        <div class="border-t border-gray-200"></div>
+        <!-- Price -->
+        <p class="text-gray-600 font-semibold">{{ prop.listing_price|intdot}} ISK</p>
+        <!-- Seperator -->
+        <div class="border-t border-gray-200"></div>
+
+        <!-- Icon grid -->
+        <div class="grid grid-cols-2 gap-2 text-sm text-gray-700 mt-3 font-semibold">
+          <!-- Total Area -->
+          <div class="flex items-center space-x-2 text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-ruler-icon lucide-pencil-ruler mr-4 text-blue-700 opacity-85">
+              <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13"/>
+              <path d="m8 6 2-2"/>
+              <path d="m18 16 2-2"/>
+              <path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17"/>
+              <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>
+              <path d="m15 5 4 4"/>
+            </svg>
+            {{ prop.total_area }} m²
+          </div>
+          <!-- Rooms -->
+          <div class="flex items-center space-x-2 text-gray-700 font-semibold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-door-open-icon lucide-door-open mr-4 text-blue-700 opacity-85">
+              <path d="M11 20H2"/>
+              <path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.561z"/>
+              <path d="M11 4H8a2 2 0 0 0-2 2v14"/>
+              <path d="M14 12h.01"/>
+              <path d="M22 20h-3"/>
+            </svg>
+            {{ prop.rooms }}
+          </div>
+          <!-- Bedrooms -->
+          <div class="flex items-center space-x-2 text-gray-700 font-semibold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bed-double-icon lucide-bed-double mr-4 text-blue-700 opacity-85">
+              <path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/>
+              <path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/>
+              <path d="M12 4v6"/>
+              <path d="M2 18h20"/>
+            </svg>
+            {{ prop.bedrooms }}
+          </div>
+          <!-- Bathrooms -->
+          <div class="flex items-center space-x-2 text-gray-700 font-semibold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bath-icon lucide-bath mr-4 text-blue-700 opacity-85">
+              <path d="M10 4 8 6"/>
+              <path d="M17 19v2"/>
+              <path d="M2 12h20"/>
+              <path d="M7 19v2"/>
+              <path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>
+            </svg>
+            {{ prop.bathrooms }}
+          </div>
         </div>
-      </a>
-    {% endfor %}
-  </div>
+      </div>
+    </a>
+  {% endfor %}
 </div>
+
 {% endblock %}
+
