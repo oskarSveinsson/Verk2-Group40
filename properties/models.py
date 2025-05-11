@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from users.models import Seller
+
 
 class Property(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -10,7 +12,7 @@ class Property(models.Model):
     listing_price = models.IntegerField()
     property_type = models.CharField(max_length=10)
     property_status = models.CharField(max_length=10)
-    seller = models.ForeignKey(User, related_name='seller', on_delete=models.CASCADE)
+    seller = models.ForeignKey(Seller, related_name='properties', on_delete=models.CASCADE)
     rooms = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.IntegerField()
