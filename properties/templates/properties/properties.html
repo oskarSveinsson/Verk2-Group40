@@ -88,7 +88,8 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
   {% for prop in properties %}
-    <a href="{% url 'property-detail' prop.id %}" class="block bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition">
+    <a href="{% url 'property-detail' prop.id %}"
+       class="block bg-white rounded-lg overflow-hidden shadow duration-200 ease-in-out hover:-translate-y-1 hover:shadow-lg">
       <!-- Thumbnail -->
       {% with prop.images.all.0 as first_image %}
         {% if first_image %}
