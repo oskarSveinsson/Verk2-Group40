@@ -1,12 +1,7 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Property
-
-def index(request):
-    return HttpResponse(f"Response from {request.path}")
-
-def get_properties_by_id(request, id):
-    return HttpResponse(f"Response from {request.path} with id {id}")
+from .forms import PurchaseOfferForm
+from django.contrib.auth.decorators import login_required
 
 def get_properties(request):
     props = Property.objects.prefetch_related('images').all()
@@ -41,4 +36,24 @@ def get_properties(request):
 def get_property_detail(request, id):
     prop = get_object_or_404(Property, id=id)
     return render(request, 'properties/property_detail.html', {'property': prop})
+
+@login_required
+def submit_offer(request, property_id):
+    prop = get_object_or_404(Property, pk=property_id)
+
+    if request.method == 'POST':
+        form = PurchaseOfferForm(request.POST)
+        if form.is_valid():
+            offer = form.save(commit=False)
+            offer.property = prop
+            offer.user = request.user
+            offer.save()
+            return redirect('offer_success', property_id=prop.id)
+    else:
+        form = PurchaseOfferForm()
+
+    return render(request, 'properties/submit_offer.html', {'form': form, 'property': prop})
+
+def offer_success(request, property_id):
+    pass
 
