@@ -16,12 +16,12 @@
     <form method="post">
         {% csrf_token %}
         <div class="mb-4">
-            <label for="id_offer_amount" class="block text-sm font-medium text-gray-700">Offer Amount</label>
+            <label class="block text-sm font-medium text-gray-700">Offer Amount</label>
             {{ form.offer_amount }}
         </div>
 
         <div class="mb-4">
-            <label for="id_expiration_date" class="block text-sm font-medium text-gray-700">Expiration Date</label>
+            <label class="block text-sm font-medium text-gray-700">Expiration Date</label>
             {{ form.expiration_date }}
         </div>
 
