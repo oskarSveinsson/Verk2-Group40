@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django import forms
 from users.models import Seller
 
 
@@ -38,4 +39,15 @@ class PropertyImage(models.Model):
         managed = False
         db_table = 'images'
         ordering = ['id']
+
+class PurchaseOffer(models.Model):
+    id = models.IntegerField(primary_key=True)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    offer_amount = models.IntegerField()
+    expiration_date = models.DateField()
+    status = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.buyer} - {self.property}"
 

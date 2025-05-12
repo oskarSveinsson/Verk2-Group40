@@ -101,9 +101,7 @@
 {% endwith %}
 
     <div class="text-center mt-8">
-        <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
-            Submit a Purchase Offer
-        </button>
+        <a href="{% url 'submit-offer' property.id %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit a Purchase Offer</a>
     </div>
 </div>
 
