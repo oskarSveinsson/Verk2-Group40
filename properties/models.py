@@ -41,7 +41,6 @@ class PropertyImage(models.Model):
         ordering = ['id']
 
 class PurchaseOffer(models.Model):
-    id = models.IntegerField(primary_key=True)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     offer_amount = models.IntegerField()
@@ -50,4 +49,8 @@ class PurchaseOffer(models.Model):
 
     def __str__(self):
         return f"{self.buyer} - {self.property}"
+
+    class Meta:
+        db_table = 'purchase_offers'
+        managed = False
 
