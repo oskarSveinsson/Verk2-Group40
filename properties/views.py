@@ -46,7 +46,8 @@ def submit_offer(request, property_id):
         if form.is_valid():
             offer = form.save(commit=False)
             offer.property = prop
-            offer.user = request.user
+            offer.buyer = request.user
+            offer.status = 'Pending'
             offer.save()
             return redirect('offer_success', property_id=prop.id)
     else:
@@ -55,5 +56,6 @@ def submit_offer(request, property_id):
     return render(request, 'properties/submit_offer.html', {'form': form, 'property': prop})
 
 def offer_success(request, property_id):
-    pass
+    property = get_object_or_404(Property, pk=property_id)
+    return render(request, 'properties/offer_success.html', {'property': property})
 

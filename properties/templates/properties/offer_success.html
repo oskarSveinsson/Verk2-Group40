@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow text-center">
+  <h2 class="text-2xl font-bold text-green-700">Offer Submitted Successfully!</h2>
+  <p class="text-gray-700">
+  Your purchase offer for <strong>{{ property.street }} {{ property.house_number }}</strong>
+  in {{ property.city }} has been recorded.
+  </p>
+  <a href="{% url 'property-detail' property.id %}" class="inline-block mt-6 px-4 py-2 border border-blue-600 text-gray-700 rounded hover:bg-blue-70 transition">
+   Back to Property Details
+  </a>
+</div>
+{% endblock %}

@@ -100,9 +100,11 @@
 </div>
 {% endwith %}
 
+{% if request.user.is_authenticated %}
     <div class="text-center mt-8">
-        <a href="{% url 'submit-offer' property.id %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit a Purchase Offer</a>
+        <a href="{% url 'submit_offer' property.id %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit a Purchase Offer</a>
     </div>
+{% endif %}
 </div>
 
 {% endblock %}

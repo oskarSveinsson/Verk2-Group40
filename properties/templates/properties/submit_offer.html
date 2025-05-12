@@ -1,50 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Submit Offer - Castle Apartments</title>
-  <link rel="stylesheet" href="../../../Html/styles/styles5.css" />
-</head>
-<body>
-  <header class="navbar">
-    <img src="images/icon.png" alt="Home icon" class="icon">
-    <h1 class="logo">Castle Apartments</h1>
-    <img src="images/person.png" alt="User icon" class="icon">
-  </header>
+{% extends "base.html" %}
+{% load humanize %}
+{% load filters %}
 
-  <main class="form-container">
-    <h2>Submit a Purchase Offer</h2>
-    <form action="../../../Html/finalize_offer.html" method="get">
-      <label for="offerAmount">Offer Amount (ISK):</label>
-      <input
-        type="number"
-        id="offerAmount"
-        name="offerAmount"
-        placeholder="Enter your offer"
-        min="100000"
-        step="10000"
-        required
-      >
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 bg-white p-6 rounded-lg shadow space-y-6">
 
-      <label for="expirationDate">Expiration Date:</label>
-      <input type="date" id="expirationDate" name="expirationDate" required>
+    <h2 class="text-2xl font-bold text-gray-800">Submit an Offer</h2>
 
-      <button type="submit">Continue</button>
+    <div class="text-gray-600 text-sm mb-4">
+        For: <strong>{{ property.street }} {{ property.house_number }}</strong>,
+        {{ property.postal_code }}{{ property.city }}
+        <p class="text-gray-700 font-medium">Listed price: {{ property.listing_price|intdot }} ISK.</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="id_offer_amount" class="block text-sm font-medium text-gray-700">Offer Amount</label>
+            {{ form.offer_amount }}
+        </div>
+
+        <div class="mb-4">
+            <label for="id_expiration_date" class="block text-sm font-medium text-gray-700">Expiration Date</label>
+            {{ form.expiration_date }}
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+            Submit Offer
+        </button>
     </form>
-  </main>  
 
-  <footer>
-    <p>About</p>
-    <p>Social media</p>
-  </footer>
+    <a href="{% url 'property-detail' property.id %}"
+    class="inline-block mt-6 px-4 py-2 border border-blue-600 text-gray-700 rounded hover:bg-blue-50 transition">Back to Property Details</a>
 
-  <!-- No going back in time  -->
-  <script>
-    const today = new Date().toISOString().split('T')[0];
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById("expirationDate").setAttribute("min", today);
-    });
-  </script>
-</body>
-</html>
+</div>
+{% endblock %}
