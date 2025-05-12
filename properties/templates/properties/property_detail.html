@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -22,7 +23,7 @@
         <div>
             <h2 class="text-lg font-semibold mb-2">Details</h2>
             <ul class="text-gray-700 space-y-1">
-                <li><strong>Listing Price:</strong> {{ property.listing_price }} kr.</li>
+                <li><strong>Listing Price:</strong> {{ property.listing_price|intcomma }} ISK</li>
                 <li><strong>Rooms:</strong> {{ property.rooms }}</li>
                 <li><strong>Bedrooms:</strong> {{ property.bedrooms }}</li>
                 <li><strong>Bathrooms:</strong> {{ property.bathrooms }}</li>
@@ -102,7 +103,22 @@
 
 {% if request.user.is_authenticated %}
     <div class="text-center mt-8">
-        <a href="{% url 'submit_offer' property.id %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Submit a Purchase Offer</a>
+
+        {% if property.property_status == 'sold' %}
+            <p class="text-red-500 font-semibold">This property has been sold.</p>
+
+        {% else %}
+            {% if user_offer %}
+                <a href="{% url 'submit_offer' property.id %}" class="bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600">
+                    Resubmit a Purchase Offer
+                </a>
+                <p class="mt-2 text-gray-600 text-sm">Current offer status: <strong>{{ user_offer.status }}</strong></p>
+            {% else %}
+                <a href="{% url 'submit_offer' property.id %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                    Submit a Purchase Offer
+                </a>
+            {% endif %}
+        {% endif %}
     </div>
 {% endif %}
 </div>

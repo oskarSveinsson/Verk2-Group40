@@ -45,6 +45,7 @@ class PurchaseOffer(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     offer_amount = models.IntegerField()
     expiration_date = models.DateField()
+    submitted = models.DateField()
     status = models.CharField(max_length=10)
 
     def __str__(self):
