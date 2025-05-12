@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from users.forms.profile_form import ProfileUpdateForm, ProfileImageForm
 from users.models import UserProfile
+from properties.models import PurchaseOffer
 
 
 def login_view(request):
@@ -48,3 +49,8 @@ def profile(request):
         'image_form': image_form,
         'profile': profile
     })
+
+@login_required
+def purchase_offers(request):
+    offers = PurchaseOffer.objects.select_related('property__seller').filter(buyer=request.user)
+    return render(request, 'users/my_offers.html', {'offers': offers})
