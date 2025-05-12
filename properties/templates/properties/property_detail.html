@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -22,7 +23,7 @@
         <div>
             <h2 class="text-lg font-semibold mb-2">Details</h2>
             <ul class="text-gray-700 space-y-1">
-                <li><strong>Listing Price:</strong> {{ property.listing_price }} kr.</li>
+                <li><strong>Listing Price:</strong> {{ property.listing_price|intcomma }} ISK</li>
                 <li><strong>Rooms:</strong> {{ property.rooms }}</li>
                 <li><strong>Bedrooms:</strong> {{ property.bedrooms }}</li>
                 <li><strong>Bathrooms:</strong> {{ property.bathrooms }}</li>
