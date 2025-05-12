@@ -23,7 +23,7 @@
         </button>
     </div>
 
-    <form method=""POST enctype="multipart/form-data" class="space-y-4 mt-6 {% if not user_form.errors and not image_form.errors and not request.POST %}hidden{% endif %}" id="profile-form">
+    <form method="POST" enctype="multipart/form-data" class="space-y-4 mt-6 {% if not user_form.errors and not image_form.errors and not request.POST %}hidden{% endif %}" id="profile-form">
         {% csrf_token %}
 
         {% if user_form.non_field_errors %}
@@ -38,7 +38,7 @@
         {% endif %}
 
         <div>
-            <label for="{{ user_form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">Update Username</label>
+            <label class="block text-sm font-medium text-gray-700">Update Username</label>
             {{ user_form.username }}
             {% if user_form.username.errors %}
                 <p class="text-red-500 text-sm mt-1">{{ user_form.username.errors.0 }}</p>
@@ -46,7 +46,7 @@
         </div>
 
         <div>
-            <label for="{{ image_form.profile_image.id_for_label }}" class="block text-sm font-medium text-gray-700">Upload Profile Image</label>
+            <label class="block text-sm font-medium text-gray-700">Upload Profile Image</label>
             {{ image_form.profile_image }}
             {% if image_form.profile_image.errors %}
                 <p class="text-red-500 text-sm mt-1">{{ image_form.profile_image.errors.0 }}</p>
@@ -57,6 +57,12 @@
             Save Changes
         </button>
     </form>
+
+    <div class="text-center">
+        <a href="{% url 'purchase_offers' %}" class="bg-gray-800 text-white px-4 py-2 rounded-md mt-4 inline-block hover:bg-gray-700">
+            My Purchase Offers
+        </a>
+    </div>
 
     <form method="POST" action="{% url 'logout' %}" class="text-center mt-4">
         {% csrf_token %}

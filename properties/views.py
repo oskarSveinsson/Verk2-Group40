@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Property
+from .models import Property, PurchaseOffer
 from .forms import PurchaseOfferForm
 from django.contrib.auth.decorators import login_required
 
@@ -33,9 +33,18 @@ def get_properties(request):
 
     return render(request, 'properties/properties.html', {'properties': props})
 
+
 def get_property_detail(request, id):
     prop = get_object_or_404(Property, id=id)
-    return render(request, 'properties/property_detail.html', {'property': prop})
+
+    user_offer = None
+    if request.user.is_authenticated:
+        user_offer = PurchaseOffer.objects.filter(buyer=request.user, property=prop).first()
+
+    return render(request, 'properties/property_detail.html', {
+        'property': prop,
+        'user_offer': user_offer
+    })
 
 @login_required
 def submit_offer(request, property_id):
