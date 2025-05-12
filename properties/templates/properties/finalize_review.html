@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded-lg shadow space-y-6">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Review Your Information</h2>
+
+  <div>
+    <h3 class="text-lg font-semibold text-gray-700 mb-2">Contact Info</h3>
+    <ul class="list-disc pl-6 text-gray-600">
+      <li><strong>Street:</strong> {{ contact.street }}</li>
+      <li><strong>City:</strong> {{ contact.city }}</li>
+      <li><strong>Postal Code:</strong> {{ contact.postal_code }}</li>
+      <li><strong>Country:</strong> {{ contact.country }}</li>
+      <li><strong>National ID:</strong> {{ contact.national_id }}</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3 class="text-lg font-semibold text-gray-700 mb-2">Payment Info</h3>
+    <ul class="list-disc pl-6 text-gray-600">
+      <li><strong>Method:</strong> {{ payment.pay_method }}</li>
+      {% if payment.pay_method == 'CreditCard' %}
+        <li><strong>Card Holder:</strong> {{ payment.card_holder }}</li>
+        <li><strong>Card Number:</strong> **** **** **** {{ payment.card_number|slice:'-4:' }}</li>
+        <li><strong>Expires:</strong> {{ payment.expiration_date }}</li>
+      {% elif payment.pay_method == 'BankTransfer' %}
+        <li><strong>Account Number:</strong> {{ payment.account_number }}</li>
+      {% elif payment.pay_method == 'Mortgage' %}
+        <li><strong>Provider:</strong> {{ payment.mortgage_provider }}</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <form method="post" action="{% url 'finalize_confirm' %}">
+    {% csrf_token %}
+    <button type="submit"
+            class="w-full py-2 px-4 bg-blue-700 hover:bg-blue-800 text-white font-semibold rounded-md shadow">
+      Confirm Finalization
+    </button>
+  </form>
+</div>
+{% endblock %}
