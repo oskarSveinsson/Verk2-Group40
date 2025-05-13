@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from users.forms.profile_form import ProfileUpdateForm, ProfileImageForm
+
+from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
 from users.models import UserProfile
 from properties.models import PurchaseOffer
 
@@ -16,7 +16,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('profile')  # or your homepage
+            return redirect('profile')
         else:
             messages.error(request, "Invalid username or password.")
 
@@ -54,3 +54,17 @@ def profile(request):
 def purchase_offers(request):
     offers = PurchaseOffer.objects.select_related('property__seller').filter(buyer=request.user)
     return render(request, 'users/my_offers.html', {'offers': offers})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            messages.success(request, "Registration complete!")
+            return redirect('profile')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
