@@ -55,3 +55,43 @@ class PurchaseOffer(models.Model):
         db_table = 'purchase_offers'
         managed = False
 
+class FinalizedOffer(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    offer = models.OneToOneField(PurchaseOffer, on_delete=models.CASCADE, db_column='offer_id')
+
+    class Meta:
+        managed = False
+        db_table = 'finalized_offers'
+
+class ContactInfo(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    offer = models.OneToOneField(PurchaseOffer, on_delete=models.CASCADE, db_column='offer_id')
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    postal_code = models.IntegerField()
+    country = models.CharField(max_length=100)
+    national_id = models.CharField(max_length=10)
+
+    class Meta:
+        managed = False
+        db_table = 'contactinfo'
+
+class PaymentInfo(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    offer = models.ForeignKey(PurchaseOffer, on_delete=models.CASCADE, db_column='offer_id')
+    pay_method = models.CharField(max_length=13)
+    card_holder = models.CharField(max_length=100, null=True, blank=True)
+    card_number = models.CharField(max_length=100, null=True, blank=True)
+    expiration_date = models.DateField(null=True, blank=True)
+    cvc = models.CharField(max_length=4, null=True, blank=True)
+    account_number = models.CharField(max_length=50, null=True, blank=True)
+    mortgage_provider = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'payment_info'
+
+
+
+
+
