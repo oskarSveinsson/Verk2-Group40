@@ -67,7 +67,7 @@ class FinalizedOffer(models.Model):
     offer = models.OneToOneField(PurchaseOffer, on_delete=models.CASCADE, db_column='offer_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'finalized_offers'
 
 class ContactInfo(models.Model):
