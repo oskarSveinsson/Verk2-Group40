@@ -68,11 +68,3 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
-
-def seller_profile(request, seller_id):
-    seller = get_object_or_404(Seller, pk=seller_id)
-    properties = Property.objects.filter(seller=seller).prefetch_related('images')
-    return render(request, 'users/seller_profile.html', {
-        'seller': seller,
-        'properties': properties
-    })
