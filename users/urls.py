@@ -8,4 +8,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('profile/', views.profile, name='profile'),
     path('my-offers/', purchase_offers, name='purchase_offers'),
+    path('seller/', views.seller_dash, name='seller_dash'),
+    path('seller/accept/<int:offer_id>', views.accept_offer, name='accept_offer'),
+    path('seller/decline/<int:offer_id>', views.decline_offer, name='decline_offer'),
 ]
