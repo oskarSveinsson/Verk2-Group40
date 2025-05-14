@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load filters %}
+
 {% block content %}
 <div class="max-w-6xl mx-auto py-10 px-4">
   <h2 class="text-2xl font-semibold mb-6">Your Purchase Offers</h2>
@@ -29,7 +31,7 @@
                 {% elif offer.status == 'Accepted' %}
                   <span class="text-green-700 font-semibold">Accepted</span>
                 {% elif offer.status == 'Declined' %}
-                  <span class="text-red-600 font-semibold">Declined</span>
+                  <span class="text-red-600 font-semibold">Rejected</span>
                 {% else %}
                   <span class="text-gray-500 italic">{{ offer.status }}</span>
                 {% endif %}
@@ -42,7 +44,7 @@
                   </a>
                   <a href="{% url 'decline_offer' offer.id %}"
                      class="inline-block px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium">
-                    Decline
+                    Reject
                   </a>
                 {% else %}
                   <span class="text-gray-400 text-sm italic">Handled</span>
