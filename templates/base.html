@@ -13,21 +13,43 @@
     {% load static %}
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
-   <nav class="bg-white shadow p-4">
-        <div class="container mx-auto flex justify-between">
-            <a href="/" class="font-bold text-xl">Castle Apartments</a>
-            <div>
-                <a href="/" class="mr-4 hover:underline">Home</a>
+    <nav class="bg-white shadow p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/">
+                <img src="{% static '/images/ca-logo.png' %}" alt="Castle Apartments logo" class="h-10">
+            </a>
+
+            <div class="flex items-center space-x-4">
+                <a href="/" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-800 text-white transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0H7v6h10v-6z" />
+                  </svg>
+                  <span>Home</span>
+                </a>
 
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="mr-4 hover:underline">Profile</a>
+                    <a href="{% url 'profile' %}" class="flex items-center space-x-2 px-4 py-2 rounded-xl bg-gray-600 hover:bg-gray-800 text-white transition">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2V19.2c0-3.2-6.4-4.8-9.6-4.8z" />
+                      </svg>
+                      <span>Profile</span>
+                    </a>
                     <form method="post" action="{% url 'logout' %}" class="inline">
                         {% csrf_token %}
-                        <button type="submit" class="text-red-500 mt-4 inline-block">Log out</button>
+                        <button type="submit" class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white transition">
+                            Log out
+                        </button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}" class="hover:underline">Log In</a>
-                    <a href="{% url 'register' %}" class="hover:underline">Register</a>
+                    <div class="border w-fit rounded-xl shadow-sm flex overflow-hidden">
+                        <a href="{% url 'login' %}" class="px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white transition">
+                            Login
+                        </a>
+                        <a href="{% url 'register' %}" class="px-4 py-2 bg-gray-600 hover:bg-gray-800 text-white transition">
+                            Register
+                        </a>
+                    </div>
                 {% endif %}
             </div>
         </div>
@@ -54,7 +76,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
+    <footer class="fixed bottom-0 left-0 w-full bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 z-50">
         <div class="text-gray-700">
           <p class="font-semibold text-base">Castle Apartments</p>
           <p class="mt-1 text-sm">Contact: <a href="mailto:ca@ca.is" class="text-blue-600 hover:underline">ca@ca.is</a></p>
