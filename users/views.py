@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
 from users.models import UserProfile, Seller
-from properties.models import PurchaseOffer, Property
+from properties.models import PurchaseOffer, Property, FinalizedOffer
 
 
 def login_view(request):
@@ -55,6 +55,11 @@ def profile(request):
 @login_required
 def purchase_offers(request):
     offers = PurchaseOffer.objects.select_related('property__seller').filter(buyer=request.user)
+
+    finalized_offers = set(FinalizedOffer.objects.values_list('offer_id', flat=True))
+    for offer in offers:
+        offer.is_finalized = offer.id in finalized_offers
+
     return render(request, 'users/my_offers.html', {'offers': offers})
 
 def register(request):
