@@ -59,9 +59,15 @@
     </form>
 
     <div class="text-center">
-        <a href="{% url 'purchase_offers' %}" class="bg-gray-800 text-white px-4 py-2 rounded-md mt-4 inline-block hover:bg-gray-700">
-            My Purchase Offers
-        </a>
+        {% if user.seller_profile %}
+            <a href="{% url 'seller_dash' %}" class="bg-gray-800 text-white px-4 py-2 rounded-md mt-4 inline-block hover:bg-gray-700">
+                View All Offers
+            </a>
+        {% else %}
+            <a href="{% url 'purchase_offers' %}" class="bg-gray-800 text-white px-4 py-2 rounded-md mt-4 inline-block hover:bg-gray-700">
+                My Purchase Offers
+            </a>
+        {% endif %}
     </div>
 
     <form method="POST" action="{% url 'logout' %}" class="text-center mt-4">

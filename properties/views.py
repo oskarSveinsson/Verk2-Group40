@@ -79,14 +79,19 @@ def finalize(request, step):
     step = valid_steps.get(step.lower())
     if not step:
         return redirect('/')
-    offer_id = request.session.get('finalize_offer_id')
+    offer_id = request.GET.get('offer_id') or request.session.get('finalize_offer_id')
     if not offer_id:
         return redirect('/')
+    request.session['finalize_offer_id'] = offer_id
+
     offer = get_object_or_404(PurchaseOffer, id=offer_id, buyer=request.user, status='Accepted')
 
     if step == 'contact':
-        FinalizedOffer.objects.get_or_create(offer=offer)
+        print("🔍 FINALIZE STEP: contact step hit")
+        print("🔍 Attempting get_or_create for FinalizedOffer...")
         try:
+            finalized_offer, created = FinalizedOffer.objects.get_or_create(offer=offer)
+            print(f"FinalizedOffer for offer_id {offer_id} created={created}")
             contact = ContactInfo.objects.get(offer=offer)
             init = {
                 'street': contact.street,
