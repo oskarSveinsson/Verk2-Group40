@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load filters %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-10 px-4">
+  <h2 class="text-2xl font-semibold mb-6">Your Purchase Offers</h2>
+
+  {% if offers %}
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200 text-sm text-gray-800">
+        <thead class="bg-gray-50 text-xs uppercase tracking-wider text-gray-600">
+          <tr>
+            <th class="px-6 py-4 text-left">Property</th>
+            <th class="px-6 py-4 text-left">Buyer</th>
+            <th class="px-6 py-4 text-left">Offer Amount</th>
+            <th class="px-6 py-4 text-left">Status</th>
+            <th class="px-6 py-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {% for offer in offers %}
+            <tr>
+              <td class="px-6 py-4 font-medium">
+                {{ offer.property.street }} {{ offer.property.house_number }}, {{ offer.property.city }}
+              </td>
+              <td class="px-6 py-4">{{ offer.buyer.username }}</td>
+              <td class="px-6 py-4">{{ offer.offer_amount|intdot }} ISK</td>
+              <td class="px-6 py-4">
+                {% if offer.status == 'Pending' %}
+                  <span class="text-yellow-600 font-semibold">Pending</span>
+                {% elif offer.status == 'Accepted' %}
+                  <span class="text-green-700 font-semibold">Accepted</span>
+                {% elif offer.status == 'Declined' %}
+                  <span class="text-red-600 font-semibold">Rejected</span>
+                {% else %}
+                  <span class="text-gray-500 italic">{{ offer.status }}</span>
+                {% endif %}
+              </td>
+              <td class="px-6 py-4 space-x-2">
+                {% if offer.status == 'Pending' %}
+                  <a href="{% url 'accept_offer' offer.id %}"
+                     class="inline-block px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium">
+                    Accept
+                  </a>
+                  <a href="{% url 'decline_offer' offer.id %}"
+                     class="inline-block px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium">
+                    Reject
+                  </a>
+                {% else %}
+                  <span class="text-gray-400 text-sm italic">Handled</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-gray-600">No purchase offers have been submitted for your properties yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

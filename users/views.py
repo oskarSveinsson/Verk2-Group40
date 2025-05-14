@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
 from users.models import UserProfile
-from properties.models import PurchaseOffer
+from properties.models import PurchaseOffer, Property
 
 
 def login_view(request):
@@ -16,6 +16,8 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            if hasattr(user, 'seller_profile'):
+                return redirect('seller_dash')
             return redirect('profile')
         else:
             messages.error(request, "Invalid username or password.")
@@ -68,3 +70,45 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
+@login_required
+def seller_dash(request):
+    if not hasattr(request.user, 'seller_profile'):
+        return redirect('/')
+
+    seller = request.user.seller_profile
+
+    properties = Property.objects.filter(seller=seller)
+
+    offers = PurchaseOffer.objects.filter(property__in=properties)
+
+    return render(request, 'users/seller_dash.html', {'offers': offers})
+
+@login_required
+def accept_offer(request, offer_id):
+    if not hasattr(request.user, 'seller_profile'):
+        return redirect('/')
+
+    seller = request.user.seller_profile
+    offer = get_object_or_404(PurchaseOffer, id=offer_id, property__seller=seller)
+
+    has_accepted = PurchaseOffer.objects.filter(property=offer.property, status='Accepted').exists()
+
+    if has_accepted:
+        messages.error(request, "This property already has an accepted offer")
+        return redirect('seller_dash')
+    offer.status = 'Accepted'
+    offer.save()
+    offer.property.update_status()
+    return redirect('seller_dash')
+
+@login_required
+def decline_offer(request, offer_id):
+    if not hasattr(request.user, 'seller_profile'):
+        return redirect('/')
+
+    seller = request.user.seller_profile
+    offer = get_object_or_404(PurchaseOffer, id=offer_id, property__seller=seller)
+    offer.status = 'Rejected'
+    offer.save()
+    return redirect('seller_dash')
