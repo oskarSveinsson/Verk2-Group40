@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
-from users.models import UserProfile
-from properties.models import PurchaseOffer
+from users.models import UserProfile, Seller
+from properties.models import PurchaseOffer, Property
 
 
 def login_view(request):
@@ -68,3 +68,11 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
+def seller_profile(request, seller_id):
+    seller = get_object_or_404(Seller, pk=seller_id)
+    properties = Property.objects.filter(seller=seller).prefetch_related('images')
+    return render(request, 'users/seller_profile.html', {
+        'seller': seller,
+        'properties': properties
+    })

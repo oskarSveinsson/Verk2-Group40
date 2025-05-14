@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-5xl mx-auto mt-10 bg-white p-6 rounded shadow">
+
+    <div class="w-full aspect-[16/5.5] bg-gray-200 rounded overflow-hidden">
+      <img src="{{ seller.cover_url }}" alt="Cover Image" class="w-full h-full object-cover">
+    </div>
+
+    <div class="flex items-center space-x-4">
+        {% if seller.logo_url %}
+            <img src="{{ seller.logo_url }}" alt="Logo" class="w-20 h-20 rounded-full object-cover">
+        {% endif %}
+        <div>
+            <h1 class="text-2xl font-bold">{{ seller.first_name }} {{ seller.last_name }}</h1>
+            <p class="text-gray-500">{{ seller.seller_type|title }}</p>
+            {% if seller.seller_type == 'agency' %}
+                <p>{{ seller.street }}, {{ seller.postal_code }} {{ seller.city }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if seller.bio %}
+    <div class="mt-6">
+        <h2 class="font-semibold text-lg">About</h2>
+        <p class="text-gray-700">{{ seller.bio }}</p>
+    </div>
+    {% endif %}
+
+    <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Properties for Sale</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {% for property in properties %}
+                <a href="{% url 'property-detail' property.id %}" class="block border rounded overflow-hidden hover:shadow-lg">
+                    {% if property.images.all %}
+                        <img src="{{ property.images.all.0.url }}" class="w-full h-40 object-cover">
+                    {% endif %}
+                    <div class="p-2">
+                        <p class="font-semibold">{{ property.street }} {{ property.house_number }}</p>
+                        <p class="text-sm text-gray-600">{{ property.city }}, {{ property.postal_code }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

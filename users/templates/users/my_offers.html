@@ -16,7 +16,11 @@
         <p><b>Submitted on:</b> {{ offer.submitted|date:"F j, Y" }}</p>
         <p><b>Expires:</b> {{ offer.expiration_date|date:"F j, Y" }}</p>
         <p><b>Offer:</b> {{ offer.offer_amount|intcomma }} ISK</p>
-        <p><b>Seller:</b> {{ offer.property.seller.first_name }} {{ offer.property.seller.last_name }}</p>
+        <p><b>Seller:</b>
+          <a href="{% url 'seller_profile' offer.property.seller.user_id %}" class="text-blue-600 hover:underline">
+            {{ offer.property.seller.first_name }} {{ offer.property.seller.last_name }}
+          </a>
+        </p>
         <p><b>Status:</b> {{ offer.status }}</p>
       </li>
     {% endfor %}

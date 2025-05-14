@@ -86,7 +86,11 @@
         {% endif %}
 
         <div class="text-gray-700 space-y-1">
-            <p><strong>Name:</strong> {{ s.first_name }} {{ s.last_name }}</p>
+            <p><strong>Name:</strong>
+              <a href="{% url 'seller_profile' s.user_id %}" class="text-blue-600 hover:underline">
+                {{ s.first_name }} {{ s.last_name }}
+              </a>
+            </p>
             {% if s.seller_type == 'agency' %}
                 <p><strong>Real Estate Agency</strong></p>
                 <p><strong>Location:</strong> {{ s.street }}, {{ s.postal_code }} {{ s.city }}, {{ s.country }}</p>

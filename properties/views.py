@@ -1,6 +1,3 @@
-from math import expm1
-
-from Tools.demo.sortvisu import steps
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .forms import *
