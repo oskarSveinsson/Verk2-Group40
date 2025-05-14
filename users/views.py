@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
-from users.models import UserProfile, Seller
-from properties.models import PurchaseOffer, Property
+from users.models import UserProfile
+from properties.models import PurchaseOffer
 
 
 def login_view(request):
