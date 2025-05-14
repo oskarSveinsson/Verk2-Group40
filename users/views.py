@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from users.forms import ProfileUpdateForm, ProfileImageForm, UserRegisterForm
-from users.models import UserProfile
+from users.models import UserProfile, Seller
 from properties.models import PurchaseOffer, Property
 
 
@@ -112,3 +112,11 @@ def decline_offer(request, offer_id):
     offer.status = 'Rejected'
     offer.save()
     return redirect('seller_dash')
+
+def seller_profile(request, seller_id):
+    seller = get_object_or_404(Seller, pk=seller_id)
+    properties = Property.objects.filter(seller=seller).prefetch_related('images')
+    return render(request, 'users/seller_profile.html', {
+        'seller': seller,
+        'properties': properties
+    })

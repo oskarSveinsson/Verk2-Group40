@@ -11,4 +11,5 @@ urlpatterns = [
     path('seller/', views.seller_dash, name='seller_dash'),
     path('seller/accept/<int:offer_id>', views.accept_offer, name='accept_offer'),
     path('seller/decline/<int:offer_id>', views.decline_offer, name='decline_offer'),
+    path('sellers/<int:seller_id>/', views.seller_profile, name='seller_profile'),
 ]
