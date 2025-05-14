@@ -23,6 +23,13 @@ class Property(models.Model):
     def __str__(self):
         return self.street
 
+    def update_status(self):
+        self.status = 'Sold' if self.is_sold else 'Available'
+        self.save()
+
+    def is_sold(self):
+        return self.purchaseoffer_set.filter(status='Accepted').exists()
+
     class Meta:
         managed = False
         db_table = 'properties'
