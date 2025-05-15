@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         placeholderIndex++;
       }
     };
+    if (img.complete && img.naturalHeight === 0) {
+      img.onerror();
+    }
   });
 });
 
