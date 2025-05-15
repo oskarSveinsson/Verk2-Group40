@@ -95,7 +95,7 @@
         {% if first_image %}
           <img src="{{ first_image.url }}" alt="Property Image" class="w-full h-48 object-cover" />
         {% else %}
-          <img src="{% static 'images/default.png' %}" alt="No Image" class="w-full h-48 object-cover" />
+          <img src="{% static 'images/placeholder1.jpg' %}" alt="Placeholder Image" class="w-full h-48 object-cover" />
         {% endif %}
       {% endwith %}
 
@@ -164,4 +164,3 @@
 </div>
 
 {% endblock %}
-
