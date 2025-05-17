@@ -87,11 +87,8 @@ def finalize(request, step):
     offer = get_object_or_404(PurchaseOffer, id=offer_id, buyer=request.user, status='Accepted')
 
     if step == 'contact':
-        print("🔍 FINALIZE STEP: contact step hit")
-        print("🔍 Attempting get_or_create for FinalizedOffer...")
         try:
             finalized_offer, created = FinalizedOffer.objects.get_or_create(offer=offer)
-            print(f"FinalizedOffer for offer_id {offer_id} created={created}")
             contact = ContactInfo.objects.get(offer=offer)
             init = {
                 'street': contact.street,

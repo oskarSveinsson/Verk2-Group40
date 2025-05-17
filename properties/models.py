@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django import forms
 from users.models import Seller
 
 
@@ -24,7 +23,7 @@ class Property(models.Model):
         return self.street
 
     def update_status(self):
-        self.status = 'Sold' if self.is_sold else 'Available'
+        self.property_status = 'Sold' if self.is_sold() else 'Available'
         self.save()
 
     def is_sold(self):
